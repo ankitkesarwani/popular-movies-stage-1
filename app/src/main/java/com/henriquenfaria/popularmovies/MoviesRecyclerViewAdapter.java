@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import java.util.List;
 
 /**
@@ -34,7 +33,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mMoviesList.get(position);
-        holder.mNameView.setText(mMoviesList.get(position).getName());
+        holder.mMovieIdView.setText(mMoviesList.get(position).getId());
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -56,19 +55,33 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mNameView;
+
+        //TODO: Temp code. Just displaying the movie id for now.
+        public final TextView mMovieIdView;
 
         public Movie mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mNameView = (TextView) view.findViewById(R.id.name);
+            mMovieIdView = (TextView) view.findViewById(R.id.movie_id);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mNameView.getText() + "'";
+            return super.toString() + " '" + mMovieIdView.getText() + "'";
+        }
+    }
+
+    // Method implementation based on http://stackoverflow.com/questions/29978695/remove-all-items-from-recyclerview
+    // It resets the list and notifies the adapter
+    public void clearRecyclerViewData() {
+        int size = mMoviesList.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                mMoviesList.remove(0);
+            }
+            notifyItemRangeRemoved(0, size);
         }
     }
 }

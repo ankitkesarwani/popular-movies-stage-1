@@ -8,9 +8,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements MoviesFragment.OnListFragmentInteractionListener {
 
-    //TODO: Move to Consants class
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private static final int COLUMN_COUNT  = 2;
+    //TODO: Move to Consants class
+    private static final int COLUMN_COUNT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +31,11 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     @Override
     public void onListFragmentInteraction(Movie movieItem) {
 
-        //TODO: Temp code
-        Toast.makeText(this, movieItem.getName() + " was clicked!", Toast.LENGTH_SHORT).show();
+        //TODO: Temp toast
+        Toast.makeText(this, "Movie " + movieItem.getId() + " was clicked!", Toast.LENGTH_SHORT).show();
 
 
     }
+
+
 }

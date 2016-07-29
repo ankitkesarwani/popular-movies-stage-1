@@ -2,20 +2,31 @@ package com.henriquenfaria.popularmovies;
 
 public class Movie {
 
+    //TODO: Use double for the id?
+    private String mId;
+    private String mTitle;
 
-    private String mName;
 
-    public Movie(String name) {
-        mName = name;
+    public Movie(String id, String title) {
+        mId = id;
+        mTitle = title;
     }
 
 
     public String getName() {
-        return mName;
+        return mTitle;
     }
 
-    public void setName(String name) {
-        mName = name;
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 
 }
