@@ -6,6 +6,7 @@
     android:name="com.henriquenfaria.popularmovies.MoviesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="vertical"
     app:layoutManager="GridLayoutManager"
     tools:context=".MoviesFragment"
     tools:listitem="@layout/fragment_movie_item" />

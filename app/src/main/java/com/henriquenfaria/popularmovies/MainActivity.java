@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     public void onListFragmentInteraction(Movie movieItem) {
 
         //TODO: Temp toast
-        Toast.makeText(this, "Movie " + movieItem.getId() + " was clicked!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Movie " + movieItem.getTitle() + " was clicked!", Toast.LENGTH_SHORT).show();
 
 
     }

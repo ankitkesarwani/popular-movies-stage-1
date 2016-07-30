@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -40,8 +41,11 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
         holder.mItem = mMoviesList.get(position);
 
+       // Glide.clear(holder.mPosterView);
 
         Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).into(holder.mPosterView);
+        holder.mTitle.setText(holder.mItem.getTitle());
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +71,13 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
         public final View mView;
         public final ImageView mPosterView;
+        public final TextView mTitle;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mPosterView = (ImageView) view.findViewById(R.id.poster);
+            mTitle = (TextView) view.findViewById(R.id.title);
         }
 
         @Override

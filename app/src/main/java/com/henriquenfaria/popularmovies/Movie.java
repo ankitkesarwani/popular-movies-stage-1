@@ -18,7 +18,7 @@ public class Movie {
     public Movie() {
     }
 
-    public String getName() {
+    public String getTitle() {
         return mTitle;
     }
 
