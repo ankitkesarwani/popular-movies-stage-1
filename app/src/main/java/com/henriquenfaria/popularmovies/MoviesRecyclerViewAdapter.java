@@ -4,7 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ import java.util.List;
  * TODO: Replace the implementation with code for your data type.
  */
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
+
+    private static final String LOG_TAG = MoviesRecyclerViewAdapter.class.getSimpleName();
 
     private final List<Movie> mMoviesList;
     private final MoviesFragment.OnListFragmentInteractionListener mListener;
@@ -32,9 +36,12 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mMoviesList.get(position);
-        holder.mMovieIdView.setText(mMoviesList.get(position).getId());
 
+
+        holder.mItem = mMoviesList.get(position);
+
+
+        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).into(holder.mPosterView);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +53,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
                 }
             }
         });
+
     }
 
     @Override
@@ -54,24 +62,31 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-
-        //TODO: Temp code. Just displaying the movie id for now.
-        public final TextView mMovieIdView;
 
         public Movie mItem;
+
+        public final View mView;
+        public final ImageView mPosterView;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mMovieIdView = (TextView) view.findViewById(R.id.movie_id);
+            mPosterView = (ImageView) view.findViewById(R.id.poster);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mMovieIdView.getText() + "'";
+            //TODO: Temp code
+            return super.toString() /*+ " '" + mMovieIdView.getText() + "'"*/;
         }
     }
+
+/*
+    @Override
+    public void onViewRecycled(ViewHolder holder) {
+        Glide.clear(holder.mPosterView);
+    }
+*/
 
     // Method implementation based on http://stackoverflow.com/questions/29978695/remove-all-items-from-recyclerview
     // It resets the list and notifies the adapter

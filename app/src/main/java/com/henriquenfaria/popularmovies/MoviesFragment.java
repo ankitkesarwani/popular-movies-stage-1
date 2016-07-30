@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * A fragment representing a list of Items.
- * <p/>
+ * <p>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
@@ -43,7 +43,7 @@ public class MoviesFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
     private MoviesRecyclerViewAdapter mMoviesRecyclerViewAdapter;
-    
+
     private List<Movie> mMoviesList;
 
     /**
@@ -136,7 +136,7 @@ public class MoviesFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -157,6 +157,8 @@ public class MoviesFragment extends Fragment {
             //These are the names of the JSON objects that need to be extracted.
             final String TMD_LIST = "results";
             final String TMD_ID = "id";
+            final String TMD_TITLE = "title";
+            final String TMD_POSTER_PATH = "poster_path";
 
 
             JSONObject moviesJson = new JSONObject(moviesJsonStr);
@@ -164,12 +166,16 @@ public class MoviesFragment extends Fragment {
 
             Movie[] moviesArray = new Movie[jsonMoviesArray.length()];
 
+
+
+
             for (int i = 0; i < jsonMoviesArray.length(); i++) {
 
-                String movieId = jsonMoviesArray.getJSONObject(i).getString(TMD_ID);
+                String id = jsonMoviesArray.getJSONObject(i).getString(TMD_ID);
+                String title = jsonMoviesArray.getJSONObject(i).getString(TMD_TITLE);
+                Uri posterUri = createPosterUri(jsonMoviesArray.getJSONObject(i).getString(TMD_POSTER_PATH));
 
-                //TODO: Temp code. Just for testing now.
-                moviesArray[i] = new Movie(movieId, "");
+                moviesArray[i] = new Movie(id, title, posterUri );
             }
 
             return moviesArray;
@@ -178,10 +184,13 @@ public class MoviesFragment extends Fragment {
 
         private Uri createMoviesUri(int queryId) {
 
+            //TODO: Need to fix query url to sort movies bu popularity and top-rated
             final String POPULAR_MOVIES_BASE_URL =
                     "https://api.themoviedb.org/3/movie/popular?";
             final String TOP_RATED_MOVIES_BASE_URL =
                     "https://api.themoviedb.org/3/movie/top_rated?";
+            final String POSTER_MOVIES_BASE_URL = "http://image.tmdb.org/t/p/";
+            final String POSTER_SIZE = "w185/";
             final String API_KEY_PARAM = "api_key";
 
 
@@ -206,6 +215,16 @@ public class MoviesFragment extends Fragment {
                     .appendQueryParameter(API_KEY_PARAM, BuildConfig.THE_MOVIE_DB_MAP_API_KEY)
                     .build();
         }
+
+        private Uri createPosterUri(String posterPath) {
+
+            final String POSTER_MOVIES_BASE_URL = "http://image.tmdb.org/t/p/";
+            final String POSTER_SIZE = "w185/";
+
+            Uri builtUri = Uri.parse(POSTER_MOVIES_BASE_URL).buildUpon().appendEncodedPath(POSTER_SIZE).appendEncodedPath(posterPath).build();
+            return builtUri;
+        }
+
 
         @Override
         protected Movie[] doInBackground(Integer... params) {
