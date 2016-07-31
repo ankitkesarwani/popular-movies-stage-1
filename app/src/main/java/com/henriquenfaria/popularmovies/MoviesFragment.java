@@ -1,9 +1,11 @@
 package com.henriquenfaria.popularmovies;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,22 +30,17 @@ import java.util.List;
 
 /**
  * A fragment representing a list of Items.
- * <p>
+ * <p/>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
 public class MoviesFragment extends Fragment {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnListFragmentInteractionListener mListener;
-
     private MoviesRecyclerViewAdapter mMoviesRecyclerViewAdapter;
-
     private List<Movie> mMoviesList;
 
     /**
@@ -78,13 +75,15 @@ public class MoviesFragment extends Fragment {
         updateMoviesList();
     }
 
-
     private void updateMoviesList() {
         FetchMoviesTask moviesTask = new FetchMoviesTask();
 
         //TODO: Must implement logic to get query option by user settings (SharedPreferences)
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortOrder = prefs.getString(getString(R.string.pref_sort_order_key),
+                getString(R.string.pref_popular_value));
 
-        moviesTask.execute(Constants.POPULAR_MOVIES_QUERY_ID);
+        moviesTask.execute(sortOrder);
     }
 
     @Override
@@ -113,8 +112,6 @@ public class MoviesFragment extends Fragment {
         return view;
     }
 
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -137,7 +134,7 @@ public class MoviesFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -147,13 +144,10 @@ public class MoviesFragment extends Fragment {
         void onListFragmentInteraction(Movie item);
     }
 
-
-    public class FetchMoviesTask extends AsyncTask<Integer, Void, Movie[]> {
-
+    public class FetchMoviesTask extends AsyncTask<String, Void, Movie[]> {
 
         private Movie[] getMoviesDataFromJson(String moviesJsonStr)
                 throws JSONException {
-
 
             //These are the names of the JSON objects that need to be extracted.
             final String TMD_LIST = "results";
@@ -172,15 +166,13 @@ public class MoviesFragment extends Fragment {
                 String title = jsonMoviesArray.getJSONObject(i).getString(TMD_TITLE);
                 Uri posterUri = createPosterUri(jsonMoviesArray.getJSONObject(i).getString(TMD_POSTER_PATH));
 
-                moviesArray[i] = new Movie(id, title, posterUri );
+                moviesArray[i] = new Movie(id, title, posterUri);
             }
-
             return moviesArray;
         }
 
-        private Uri createMoviesUri(int queryId) {
+        private Uri createMoviesUri(String sortOrder) {
 
-            //TODO: Need to fix query url to sort movies bu popularity and top-rated
             final String POPULAR_MOVIES_BASE_URL =
                     "https://api.themoviedb.org/3/movie/popular?";
             final String TOP_RATED_MOVIES_BASE_URL =
@@ -189,21 +181,14 @@ public class MoviesFragment extends Fragment {
             final String POSTER_SIZE = "w185/";
             final String API_KEY_PARAM = "api_key";
 
-
             Uri builtUri = null;
 
-            switch (queryId) {
-                case Constants.TOP_RATED_MOVIES_QUERY_ID: {
-                    builtUri = Uri.parse(TOP_RATED_MOVIES_BASE_URL);
-                    break;
-                }
-
-                case Constants.POPULAR_MOVIES_QUERY_ID:
-                default: {
-                    builtUri = Uri.parse(POPULAR_MOVIES_BASE_URL);
-                    break;
-                }
-
+            if (sortOrder.equals(getString(R.string.pref_popular_value))) {
+                builtUri = Uri.parse(POPULAR_MOVIES_BASE_URL);
+            } else if (sortOrder.equals(getString(R.string.pref_top_rated_value))) {
+                builtUri = Uri.parse(TOP_RATED_MOVIES_BASE_URL);
+            } else {
+                builtUri = Uri.parse(POPULAR_MOVIES_BASE_URL);
 
             }
 
@@ -223,7 +208,7 @@ public class MoviesFragment extends Fragment {
 
 
         @Override
-        protected Movie[] doInBackground(Integer... params) {
+        protected Movie[] doInBackground(String... params) {
 
             // If there's no zip code, there's nothing to look up.  Verify size of params.
             if (params.length == 0) {
@@ -243,11 +228,7 @@ public class MoviesFragment extends Fragment {
             int numDays = 7;
 
             try {
-
-
                 Uri moviesUri = createMoviesUri(params[0]);
-
-
                 URL url = new URL(moviesUri.toString());
 
                 // Create the request to The Movide DB, and open the connection
@@ -320,6 +301,4 @@ public class MoviesFragment extends Fragment {
             }
         }
     }
-
-
 }

@@ -13,8 +13,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    //TODO: Move to Consants class
-    private static final int COLUMN_COUNT = 2;
+    private static final int PORTRAIT_COLUMN_COUNT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
             return;
         }
 
-        MoviesFragment movieFragment = MoviesFragment.newInstance(COLUMN_COUNT);
+        MoviesFragment movieFragment = MoviesFragment.newInstance(PORTRAIT_COLUMN_COUNT);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.movie_fragment_container, movieFragment).commit();
@@ -38,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         Toast.makeText(this, "Movie " + movieItem.getTitle() + " was clicked!", Toast.LENGTH_SHORT).show();
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,6 +55,4 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
