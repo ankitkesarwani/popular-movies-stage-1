@@ -41,9 +41,9 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
         holder.mItem = mMoviesList.get(position);
 
-       // Glide.clear(holder.mPosterView);
+        // Glide.clear(holder.mPosterView);
 
-        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).into(holder.mPosterView);
+        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).dontTransform().into(holder.mPosterView);
         holder.mTitle.setText(holder.mItem.getTitle());
 
 
@@ -87,12 +87,12 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
         }
     }
 
-/*
+
     @Override
     public void onViewRecycled(ViewHolder holder) {
         Glide.clear(holder.mPosterView);
     }
-*/
+
 
     // Method implementation based on http://stackoverflow.com/questions/29978695/remove-all-items-from-recyclerview
     // It resets the list and notifies the adapter
