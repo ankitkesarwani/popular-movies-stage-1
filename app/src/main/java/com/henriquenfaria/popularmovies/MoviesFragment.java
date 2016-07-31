@@ -1,7 +1,6 @@
 package com.henriquenfaria.popularmovies;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -164,14 +161,10 @@ public class MoviesFragment extends Fragment {
             final String TMD_TITLE = "title";
             final String TMD_POSTER_PATH = "poster_path";
 
-
             JSONObject moviesJson = new JSONObject(moviesJsonStr);
             JSONArray jsonMoviesArray = moviesJson.getJSONArray(TMD_LIST);
 
             Movie[] moviesArray = new Movie[jsonMoviesArray.length()];
-
-
-
 
             for (int i = 0; i < jsonMoviesArray.length(); i++) {
 
@@ -184,7 +177,6 @@ public class MoviesFragment extends Fragment {
 
             return moviesArray;
         }
-
 
         private Uri createMoviesUri(int queryId) {
 
