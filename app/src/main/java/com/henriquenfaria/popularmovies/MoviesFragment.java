@@ -2,6 +2,7 @@ package com.henriquenfaria.popularmovies;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class MoviesFragment extends Fragment {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 2;
+    private int mColumnCount = Constants.PORTRAIT_COLUMN_COUNT;
     private OnListFragmentInteractionListener mListener;
     private MoviesRecyclerViewAdapter mMoviesRecyclerViewAdapter;
     private List<Movie> mMoviesList;
@@ -95,6 +96,13 @@ public class MoviesFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
+
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mColumnCount = Constants.PORTRAIT_COLUMN_COUNT;
+            } else {
+                mColumnCount = Constants.LANDSCAPE_COLUMN_COUNT;
+            }
+
             if (mColumnCount <= 1) {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                 recyclerView.setLayoutManager(linearLayoutManager);

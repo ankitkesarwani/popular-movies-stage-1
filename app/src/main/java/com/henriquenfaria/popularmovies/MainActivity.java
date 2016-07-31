@@ -1,6 +1,7 @@
 package com.henriquenfaria.popularmovies;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,8 +14,6 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private static final int PORTRAIT_COLUMN_COUNT = 2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +23,13 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
             return;
         }
 
-        MoviesFragment movieFragment = MoviesFragment.newInstance(PORTRAIT_COLUMN_COUNT);
+        MoviesFragment movieFragment;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            movieFragment = MoviesFragment.newInstance(Constants.PORTRAIT_COLUMN_COUNT);
+        } else {
+            movieFragment = MoviesFragment.newInstance(Constants.LANDSCAPE_COLUMN_COUNT);
+        }
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.movie_fragment_container, movieFragment).commit();

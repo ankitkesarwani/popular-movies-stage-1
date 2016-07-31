@@ -14,9 +14,10 @@
         <ImageView
             android:id="@+id/poster"
             android:layout_width="wrap_content"
-            android:layout_height="277dp"
+            android:layout_height="256dp"
+            android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitStart" />
 
         <TextView
             android:id="@+id/title"
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/poster"
             android:ellipsize="marquee"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center"
             android:maxLines="2"
             android:minLines="2"
             android:textAppearance="?attr/textAppearanceListItem"
