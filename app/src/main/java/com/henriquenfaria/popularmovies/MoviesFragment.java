@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ public class MoviesFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private MoviesRecyclerViewAdapter mMoviesRecyclerViewAdapter;
     private List<Movie> mMoviesList;
+    private String mLastUpdateOrder;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,8 +73,25 @@ public class MoviesFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.SAVE_LAST_UPDATE_ORDER, mLastUpdateOrder);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            mLastUpdateOrder = savedInstanceState.getString(Constants.SAVE_LAST_UPDATE_ORDER);
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
+        if (needToUpdateMoviesList()) {
+            updateMoviesList();
+        }
     }
 
     private void updateMoviesList() {
@@ -82,8 +101,21 @@ public class MoviesFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sortOrder = prefs.getString(getString(R.string.pref_sort_order_key),
                 getString(R.string.pref_popular_value));
+        mLastUpdateOrder = sortOrder;
 
         moviesTask.execute(sortOrder);
+    }
+
+    private boolean needToUpdateMoviesList() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (!mLastUpdateOrder.equals(prefs.getString(getString(R.string.pref_sort_order_key),
+                getString(R.string.pref_popular_value)))) {
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
 
     @Override
