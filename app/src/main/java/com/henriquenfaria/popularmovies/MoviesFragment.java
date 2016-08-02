@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class MoviesFragment extends Fragment {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = MoviesActivity.class.getSimpleName();
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = Constants.PORTRAIT_COLUMN_COUNT;
     private OnListFragmentInteractionListener mListener;

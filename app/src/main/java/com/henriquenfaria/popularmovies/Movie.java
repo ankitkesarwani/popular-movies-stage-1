@@ -63,7 +63,7 @@ public class Movie implements Parcelable {
         mPosterUri = (Uri) in.readValue(Movie.class.getClassLoader());
     }
 
-    public final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Movie createFromParcel(Parcel in) {
             return new Movie(in);
         }
@@ -72,5 +72,4 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
-
 }

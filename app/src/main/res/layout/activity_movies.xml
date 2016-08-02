@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.henriquenfaria.popularmovies.MainActivity">
+    tools:context=".MoviesActivity">
     <FrameLayout
-        android:id="@+id/movie_fragment_container"
+        android:id="@+id/movies_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>
