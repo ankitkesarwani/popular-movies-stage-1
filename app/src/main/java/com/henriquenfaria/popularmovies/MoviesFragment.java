@@ -72,6 +72,8 @@ public class MoviesFragment extends Fragment {
         }
 
         setHasOptionsMenu(true);
+
+        updateMoviesList();
     }
 
     @Override
@@ -94,7 +96,7 @@ public class MoviesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        updateMoviesList();
+
     }
 
     private void updateMoviesList() {

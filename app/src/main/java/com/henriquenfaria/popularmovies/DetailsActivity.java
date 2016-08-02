@@ -12,7 +12,6 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             if (intent != null && intent.hasExtra(Constants.EXTRA_MOVIE)) {
