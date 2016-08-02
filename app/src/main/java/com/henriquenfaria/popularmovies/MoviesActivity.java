@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesFragment.OnListFragmentInteractionListener {
 
@@ -33,12 +35,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesFragment.
     public void onListFragmentInteraction(Movie movieItem) {
         Intent intent = new Intent(this, DetailsActivity.class).putExtra(Constants.EXTRA_MOVIE, movieItem);
         startActivity(intent);
-
-        //TODO: Temp toast
-        //Toast.makeText(this, "Movie " + movieItem.getTitle() + " was clicked!", Toast.LENGTH_SHORT).show();
-
     }
-/*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.movies_list_menu, menu);
@@ -55,5 +53,5 @@ public class MoviesActivity extends AppCompatActivity implements MoviesFragment.
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 }
