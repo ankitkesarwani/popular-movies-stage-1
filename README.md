@@ -1,6 +1,5 @@
 Popular Movies (Stage 1)
------
------
+======
 
 This is Popular Movies Stage 1 of Udacity's Android Developer Nanodegree.
 The purpose of this project was to built an app that helps users discover popular and top rated movies on the web.
@@ -27,8 +26,9 @@ Screens
 Instructions
 ------
 
-You need to generate your personal themoviedb.org API Key here: https://www.themoviedb.org/documentation/api
-In your gradle.properties file, put your generated API Key like this: MyTheMovieDbMapApiKey="my_generated_apy_key_value"
+You need to create a free account on themoviedb.org and generate your personal API key. More info [HERE](https://www.themoviedb.org/documentation/api).
+
+In your gradle.properties file, put your generated API Key like this: `MyTheMovieDbMapApiKey="my_generated_apy_key_value"`
 
 
 
