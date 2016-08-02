@@ -1,8 +1,10 @@
 package com.henriquenfaria.popularmovies;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Movie {
+public class Movie implements Parcelable {
 
     //TODO: Use double for the id?
     private String mId;
@@ -41,5 +43,34 @@ public class Movie {
     public void setPosterUri(Uri posterUri) {
         mPosterUri = posterUri;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeString(mId);
+        dest.writeString(mTitle);
+        dest.writeValue(mPosterUri);
+    }
+
+
+    public Movie(Parcel in) {
+        mId = in.readString();
+        mTitle = in.readString();
+        mPosterUri = (Uri) in.readValue(Movie.class.getClassLoader());
+    }
+
+    public final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
 }

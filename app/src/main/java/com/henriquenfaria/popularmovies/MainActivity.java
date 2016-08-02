@@ -1,14 +1,10 @@
 package com.henriquenfaria.popularmovies;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements MoviesFragment.OnListFragmentInteractionListener {
 
@@ -38,14 +34,20 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     @Override
     public void onListFragmentInteraction(Movie movieItem) {
 
+        DetailsFragment detailFragment = DetailsFragment.newInstance(movieItem);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.movie_fragment_container, detailFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
         //TODO: Temp toast
-        Toast.makeText(this, "Movie " + movieItem.getTitle() + " was clicked!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Movie " + movieItem.getTitle() + " was clicked!", Toast.LENGTH_SHORT).show();
 
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.movies_list_menu, menu);
         return true;
     }
 
@@ -59,5 +61,5 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
