@@ -11,10 +11,7 @@ import android.widget.TextView;
 public class DetailsFragment extends Fragment {
 
     private static final String ARG_MOVIE = "arg_movie";
-
-    // TODO: Rename and change types of parameters
     private Movie mMovie;
-
 
     public DetailsFragment() {
         // Required empty public constructor
@@ -49,8 +46,6 @@ public class DetailsFragment extends Fragment {
             TextView text2 = (TextView) view.findViewById(R.id.text_2);
             text2.setText(mMovie.getPosterUri().toString());
         }
-
-
 
         return view;
     }
