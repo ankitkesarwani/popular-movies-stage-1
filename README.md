@@ -3,11 +3,11 @@ Popular Movies (Stage 1)
 
 This is Popular Movies Stage 1 of Udacity's Android Developer Nanodegree.
 The purpose of this project was to built an app that helps users discover popular and top rated movies on the web.
-It fetches themoviedb.org API to display all movies related information, so the content provided is always up-to-date and relevant.
+It fetches themoviedb.org API to display the movies data, that way the content provided is always up-to-date and relevant.
 
 
 
-Features for Stage 1
+Stage 1 Features
 -----
 
 This is only the first part of the final Popular Movies Project.
@@ -36,7 +36,7 @@ In your gradle.properties file, put your generated API Key like this: `MyTheMovi
 Libraries
 ------
 
-This project used the following open-source libraries:
+This project uses the following libraries:
 
 [Glide](https://github.com/bumptech/glide)
 
