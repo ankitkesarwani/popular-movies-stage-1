@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-// Fragment displayed when internet connection is not available. It contains a text and a retry button.
+// Fragment displayed when internet connection is not available. It contains a text and a retry
+// button.
 public class NoInternetFragment extends Fragment {
 
     private static final String LOG_TAG = NoInternetFragment.class.getSimpleName();

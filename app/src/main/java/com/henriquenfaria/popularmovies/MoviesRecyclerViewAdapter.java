@@ -12,14 +12,16 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 // Class that manages the list of movies (RecyclerView)
-public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
+public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter
+        .ViewHolder> {
 
     private static final String LOG_TAG = MoviesRecyclerViewAdapter.class.getSimpleName();
 
     private final List<Movie> mMoviesList;
     private final MoviesListFragment.OnMoviesListInteractionListener mListener;
 
-    public MoviesRecyclerViewAdapter(List<Movie> moviesList, MoviesListFragment.OnMoviesListInteractionListener listener) {
+    public MoviesRecyclerViewAdapter(List<Movie> moviesList, MoviesListFragment
+            .OnMoviesListInteractionListener listener) {
         mMoviesList = moviesList;
         mListener = listener;
     }
@@ -35,7 +37,8 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mMoviesList.get(position);
 
-        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).dontTransform().into(holder.mPosterView);
+        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri())
+                .dontTransform().into(holder.mPosterView);
 
         holder.mTitle.setText(holder.mItem.getTitle());
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +85,8 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     }
 
 
-    // Method implementation based on http://stackoverflow.com/questions/29978695/remove-all-items-from-recyclerview
+    // Method implementation based on http://stackoverflow
+    // .com/questions/29978695/remove-all-items-from-recyclerview
     // It resets the list and notifies the adapter
     public void clearRecyclerViewData() {
         int size = mMoviesList.size();

@@ -13,7 +13,8 @@ import android.view.MenuItem;
 // Activity that is the host of MainPreferenceFragment
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener =
+            new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
@@ -66,7 +67,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         setupActionBar();
 
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new
+                MainPreferenceFragment()).commit();
 
 
     }

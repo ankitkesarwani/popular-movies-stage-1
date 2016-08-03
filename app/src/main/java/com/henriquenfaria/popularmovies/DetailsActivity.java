@@ -16,7 +16,8 @@ public class DetailsActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             if (intent != null && intent.hasExtra(Constants.EXTRA_MOVIE)) {
-                DetailsFragment detailsFragment = DetailsFragment.newInstance((Movie) intent.getParcelableExtra(Constants.EXTRA_MOVIE));
+                DetailsFragment detailsFragment = DetailsFragment.newInstance((Movie) intent
+                        .getParcelableExtra(Constants.EXTRA_MOVIE));
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.details_fragment_container, detailsFragment)
                         .commit();

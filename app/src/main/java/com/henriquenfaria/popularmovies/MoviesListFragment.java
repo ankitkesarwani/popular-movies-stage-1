@@ -124,7 +124,8 @@ public class MoviesListFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
 
-            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (getActivity().getResources().getConfiguration().orientation == Configuration
+                    .ORIENTATION_PORTRAIT) {
                 mColumnCount = Constants.PORTRAIT_COLUMN_COUNT;
             } else {
                 mColumnCount = Constants.LANDSCAPE_COLUMN_COUNT;
@@ -181,12 +182,17 @@ public class MoviesListFragment extends Fragment {
             for (int i = 0; i < jsonMoviesArray.length(); i++) {
                 String id = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_ID);
                 String title = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_TITLE);
-                String releaseDate = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_RELEASE_DATE);
-                String voteAverage = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_VOTE_AVERAGE);
-                String overview = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_OVERVIEW);
-                Uri posterUri = createPosterUri(jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_POSTER_PATH));
+                String releaseDate = jsonMoviesArray.getJSONObject(i).getString(Constants
+                        .JSON_RELEASE_DATE);
+                String voteAverage = jsonMoviesArray.getJSONObject(i).getString(Constants
+                        .JSON_VOTE_AVERAGE);
+                String overview = jsonMoviesArray.getJSONObject(i).getString(Constants
+                        .JSON_OVERVIEW);
+                Uri posterUri = createPosterUri(jsonMoviesArray.getJSONObject(i).getString
+                        (Constants.JSON_POSTER_PATH));
 
-                moviesArray[i] = new Movie(id, title, releaseDate, voteAverage, overview, posterUri);
+                moviesArray[i] = new Movie(id, title, releaseDate, voteAverage, overview,
+                        posterUri);
             }
             return moviesArray;
         }
@@ -207,16 +213,20 @@ public class MoviesListFragment extends Fragment {
             Uri apiUri = null;
 
             // This app supports English and Brazilian Portuguese
-            // How to get system's current country: http://stackoverflow.com/questions/4212320/get-the-current-language-in-device
+            // How to get system's current country: http://stackoverflow
+            // .com/questions/4212320/get-the-current-language-in-device
             if (Constants.API_PORTUGUESE_LANGUAGE.startsWith(Locale.getDefault().getLanguage())) {
                 apiUri = builtUri.buildUpon()
-                        .appendQueryParameter(Constants.API_KEY_PARAM, BuildConfig.THE_MOVIE_DB_MAP_API_KEY)
-                        .appendQueryParameter(Constants.API_LANGUAGE_PARAM, Constants.API_PORTUGUESE_LANGUAGE)
+                        .appendQueryParameter(Constants.API_KEY_PARAM, BuildConfig
+                                .THE_MOVIE_DB_MAP_API_KEY)
+                        .appendQueryParameter(Constants.API_LANGUAGE_PARAM, Constants
+                                .API_PORTUGUESE_LANGUAGE)
                         .build();
             } else {
 
                 apiUri = builtUri.buildUpon()
-                        .appendQueryParameter(Constants.API_KEY_PARAM, BuildConfig.THE_MOVIE_DB_MAP_API_KEY)
+                        .appendQueryParameter(Constants.API_KEY_PARAM, BuildConfig
+                                .THE_MOVIE_DB_MAP_API_KEY)
                         .build();
             }
 
@@ -225,7 +235,9 @@ public class MoviesListFragment extends Fragment {
 
         // Method to create poster thumbnail Uri
         private Uri createPosterUri(String posterPath) {
-            Uri builtUri = Uri.parse(Constants.API_POSTER_MOVIES_BASE_URL).buildUpon().appendEncodedPath(Constants.API_POSTER_SIZE).appendEncodedPath(posterPath).build();
+            Uri builtUri = Uri.parse(Constants.API_POSTER_MOVIES_BASE_URL).buildUpon()
+                    .appendEncodedPath(Constants.API_POSTER_SIZE).appendEncodedPath(posterPath)
+                    .build();
             return builtUri;
         }
 
@@ -278,7 +290,8 @@ public class MoviesListFragment extends Fragment {
                 moviesJsonStr = buffer.toString();
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the movies data, there's no point in attemping
+                // If the code didn't successfully get the movies data, there's no point in
+                // attemping
                 // to parse it.
                 return null;
             } finally {

@@ -62,8 +62,9 @@ public class DetailsFragment extends Fragment {
 
             TextView overviewView = (TextView) view.findViewById(R.id.overview_content);
 
-            // In portuguese, some movies does not contain overview data. In that case, displays default text: @string/overview_not_available
-            if (!TextUtils.isEmpty(mMovie.getOverview())){
+            // In portuguese, some movies does not contain overview data. In that case, displays
+            // default text: @string/overview_not_available
+            if (!TextUtils.isEmpty(mMovie.getOverview())) {
                 overviewView.setText(mMovie.getOverview());
             }
         }

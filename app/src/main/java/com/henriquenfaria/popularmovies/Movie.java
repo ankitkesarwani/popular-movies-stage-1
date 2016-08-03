@@ -23,7 +23,8 @@ public class Movie implements Parcelable {
     private String mOverview;
     private Uri mPosterUri;
 
-    public Movie(String id, String title, String releaseDate, String voteAverage, String overview, Uri posterUri) {
+    public Movie(String id, String title, String releaseDate, String voteAverage, String
+            overview, Uri posterUri) {
         mId = id;
         mTitle = title;
         mReleaseDate = releaseDate;
