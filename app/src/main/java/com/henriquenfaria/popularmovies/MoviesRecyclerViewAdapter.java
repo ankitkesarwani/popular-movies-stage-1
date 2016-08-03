@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
- * specified {@link MoviesFragment.OnListFragmentInteractionListener}.
+ * specified {@link MoviesFragment.OnMoviesListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
@@ -21,9 +21,9 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     private static final String LOG_TAG = MoviesRecyclerViewAdapter.class.getSimpleName();
 
     private final List<Movie> mMoviesList;
-    private final MoviesFragment.OnListFragmentInteractionListener mListener;
+    private final MoviesFragment.OnMoviesListInteractionListener mListener;
 
-    public MoviesRecyclerViewAdapter(List<Movie> moviesList, MoviesFragment.OnListFragmentInteractionListener listener) {
+    public MoviesRecyclerViewAdapter(List<Movie> moviesList, MoviesFragment.OnMoviesListInteractionListener listener) {
         mMoviesList = moviesList;
         mListener = listener;
     }
@@ -48,7 +48,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onMoviesListInteraction(holder.mItem);
                 }
             }
         });

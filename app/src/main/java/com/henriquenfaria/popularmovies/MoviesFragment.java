@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * A fragment representing a list of Items.
  * <p>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnMoviesListInteractionListener}
  * interface.
  */
 public class MoviesFragment extends Fragment {
@@ -41,7 +41,7 @@ public class MoviesFragment extends Fragment {
     private static final String LOG_TAG = MoviesActivity.class.getSimpleName();
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = Constants.PORTRAIT_COLUMN_COUNT;
-    private OnListFragmentInteractionListener mListener;
+    private OnMoviesListInteractionListener mListener;
     private MoviesRecyclerViewAdapter mMoviesRecyclerViewAdapter;
     private List<Movie> mMoviesList;
     private String mLastUpdateOrder;
@@ -154,11 +154,11 @@ public class MoviesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnMoviesListInteractionListener) {
+            mListener = (OnMoviesListInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement OnMoviesListFragmentInteractionListener");
         }
     }
 
@@ -178,9 +178,8 @@ public class MoviesFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Movie item);
+    public interface OnMoviesListInteractionListener {
+        void onMoviesListInteraction(Movie item);
     }
 
     public class FetchMoviesTask extends AsyncTask<String, Void, Movie[]> {
