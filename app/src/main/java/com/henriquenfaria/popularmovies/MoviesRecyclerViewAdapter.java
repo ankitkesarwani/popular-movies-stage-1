@@ -39,7 +39,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mMoviesList.get(position);
 
-        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).dontTransform().into(holder.mPosterView);
+        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).into(holder.mPosterView);
 
         holder.mTitle.setText(holder.mItem.getTitle());
         holder.mView.setOnClickListener(new View.OnClickListener() {

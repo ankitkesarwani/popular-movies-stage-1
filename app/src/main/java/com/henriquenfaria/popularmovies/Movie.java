@@ -6,18 +6,20 @@ import android.os.Parcelable;
 
 public class Movie implements Parcelable {
 
-    //TODO: Use double for the id?
     private String mId;
     private String mTitle;
+    private String mReleaseDate;
+    private String mVoteAverage;
+    private String mOverview;
     private Uri mPosterUri;
 
-    public Movie(String id, String title, Uri posterUri) {
+    public Movie(String id, String title, String releaseDate, String voteAverage, String overview, Uri posterUri) {
         mId = id;
         mTitle = title;
+        mReleaseDate = releaseDate;
+        mVoteAverage = voteAverage;
+        mOverview = overview;
         mPosterUri = posterUri;
-    }
-
-    public Movie() {
     }
 
     public String getTitle() {
@@ -34,6 +36,31 @@ public class Movie implements Parcelable {
 
     public void setId(String id) {
         mId = id;
+    }
+
+
+    public String getReleaseDate() {
+        return mReleaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        mReleaseDate = releaseDate;
+    }
+
+    public String getVoteAverage() {
+        return mVoteAverage;
+    }
+
+    public void setVoteAverage(String voteAverage) {
+        mVoteAverage = voteAverage;
+    }
+
+    public String getOverview() {
+        return mOverview;
+    }
+
+    public void setOverview(String overview) {
+        mOverview = overview;
     }
 
     public Uri getPosterUri() {
@@ -53,13 +80,18 @@ public class Movie implements Parcelable {
     public void writeToParcel(Parcel dest, int i) {
         dest.writeString(mId);
         dest.writeString(mTitle);
+        dest.writeString(mReleaseDate);
+        dest.writeString(mVoteAverage);
+        dest.writeString(mOverview);
         dest.writeValue(mPosterUri);
     }
-
 
     public Movie(Parcel in) {
         mId = in.readString();
         mTitle = in.readString();
+        mReleaseDate = in.readString();
+        mVoteAverage = in.readString();
+        mOverview = in.readString();
         mPosterUri = (Uri) in.readValue(Movie.class.getClassLoader());
     }
 

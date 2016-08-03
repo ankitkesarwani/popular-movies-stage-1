@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * A fragment representing a list of Items.
- * <p/>
+ * <p>
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
@@ -173,7 +173,7 @@ public class MoviesFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -192,6 +192,9 @@ public class MoviesFragment extends Fragment {
             final String TMD_LIST = "results";
             final String TMD_ID = "id";
             final String TMD_TITLE = "title";
+            final String TMD_RELEASE_DATE = "release_date";
+            final String TMD_VOTE_AVERAGE = "vote_average";
+            final String TMD_OVERVIEW = "overview";
             final String TMD_POSTER_PATH = "poster_path";
 
             JSONObject moviesJson = new JSONObject(moviesJsonStr);
@@ -203,9 +206,12 @@ public class MoviesFragment extends Fragment {
 
                 String id = jsonMoviesArray.getJSONObject(i).getString(TMD_ID);
                 String title = jsonMoviesArray.getJSONObject(i).getString(TMD_TITLE);
+                String releaseDate = jsonMoviesArray.getJSONObject(i).getString(TMD_RELEASE_DATE);
+                String voteAverage = jsonMoviesArray.getJSONObject(i).getString(TMD_VOTE_AVERAGE);
+                String overview = jsonMoviesArray.getJSONObject(i).getString(TMD_OVERVIEW);
                 Uri posterUri = createPosterUri(jsonMoviesArray.getJSONObject(i).getString(TMD_POSTER_PATH));
 
-                moviesArray[i] = new Movie(id, title, posterUri);
+                moviesArray[i] = new Movie(id, title, releaseDate, voteAverage, overview, posterUri);
             }
             return moviesArray;
         }

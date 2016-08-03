@@ -5,7 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 
 public class DetailsFragment extends Fragment {
@@ -40,11 +43,21 @@ public class DetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
 
         if (mMovie != null) {
-            //TODO: Temporary code just for testing
-            TextView text1 = (TextView) view.findViewById(R.id.text_1);
-            text1.setText(mMovie.getTitle());
-            TextView text2 = (TextView) view.findViewById(R.id.text_2);
-            text2.setText(mMovie.getPosterUri().toString());
+
+            ImageView posterView = (ImageView) view.findViewById(R.id.poster);
+            Glide.with(getActivity()).load(mMovie.getPosterUri()).into(posterView);
+
+            TextView titleView = (TextView) view.findViewById(R.id.title_content);
+            titleView.setText(mMovie.getTitle());
+
+            TextView releaseDateView = (TextView) view.findViewById(R.id.release_date_content);
+            releaseDateView.setText(mMovie.getReleaseDate());
+
+            TextView averageView = (TextView) view.findViewById(R.id.vote_average_content);
+            averageView.setText(mMovie.getVoteAverage());
+
+            TextView overviewView = (TextView) view.findViewById(R.id.overview_content);
+            overviewView.setText(mMovie.getOverview());
         }
 
         return view;

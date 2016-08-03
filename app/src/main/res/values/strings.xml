@@ -6,6 +6,11 @@
     <string name="pref_top_rated_name">Top Rated</string>
     <string name="pref_sort_order_title">Sort order</string>
 
+    <string name="header_title">Title</string>
+    <string name="header_vote_average">User rating</string>
+    <string name="header_release_date">Release date</string>
+    <string name="header_overview">Plot synopsis </string>
+
     <!-- Do not translate -->
     <string name="pref_sort_order_key" translatable="false">sort_order</string>
     <string name="pref_popular_value" translatable="false">popular_value</string>
