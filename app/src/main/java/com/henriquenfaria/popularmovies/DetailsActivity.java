@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+// Activity that hosts DetailsFragment
 public class DetailsActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = DetailsActivity.class.getSimpleName();

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-
+// Fragment that displays detailed info about selected movie
 public class DetailsFragment extends Fragment {
 
     private static final String LOG_TAG = DetailsFragment.class.getSimpleName();
@@ -23,6 +23,7 @@ public class DetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    // Create new Fragment instance
     public static DetailsFragment newInstance(Movie movieSelected) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();

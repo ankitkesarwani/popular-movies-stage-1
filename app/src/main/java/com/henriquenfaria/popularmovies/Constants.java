@@ -1,5 +1,6 @@
 package com.henriquenfaria.popularmovies;
 
+// Class containing several Constants used by app
 public class Constants {
     // GENERAL
     public static final int PORTRAIT_COLUMN_COUNT = 2;

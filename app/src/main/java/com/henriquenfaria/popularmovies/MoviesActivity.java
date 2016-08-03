@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+// Class that can host MoviesListFragment or NoInternetFragment
 public class MoviesActivity extends AppCompatActivity implements MoviesListFragment.OnMoviesListInteractionListener, NoInternetFragment.OnRetryInteractionListener {
 
     private static final String LOG_TAG = MoviesActivity.class.getSimpleName();
@@ -46,6 +47,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesListFragm
         }
     }
 
+    // Method to retrieve a new MovieFragment instance based on current phones's orientation
     private MoviesListFragment getMoviesFragment(Configuration config) {
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
             return MoviesListFragment.newInstance(Constants.PORTRAIT_COLUMN_COUNT);
@@ -53,7 +55,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesListFragm
             return MoviesListFragment.newInstance(Constants.LANDSCAPE_COLUMN_COUNT);
         }
     }
-
 
     @Override
     public void onMoviesListInteraction(Movie movieItem) {
@@ -110,6 +111,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesListFragm
         }
     }
 
+    // Method called after pressing RETRY button. It checks Internet connection again.
     @Override
     public void onRetryInteraction() {
         FragmentManager fragmentManager = getSupportFragmentManager();

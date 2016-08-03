@@ -11,11 +11,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
- * specified {@link MoviesListFragment.OnMoviesListInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+// Class that manages the list of movies (RecyclerView)
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
 
     private static final String LOG_TAG = MoviesRecyclerViewAdapter.class.getSimpleName();
@@ -39,7 +35,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mMoviesList.get(position);
 
-        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).into(holder.mPosterView);
+        Glide.with(holder.mPosterView.getContext()).load(holder.mItem.getPosterUri()).dontTransform().into(holder.mPosterView);
 
         holder.mTitle.setText(holder.mItem.getTitle());
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +72,9 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
         @Override
         public String toString() {
-            //TODO: Temp code
-            return super.toString() /*+ " '" + mMovieIdView.getText() + "'"*/;
+            return super.toString();
         }
     }
-
 
     @Override
     public void onViewRecycled(ViewHolder holder) {

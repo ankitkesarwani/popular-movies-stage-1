@@ -31,12 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnMoviesListInteractionListener}
- * interface.
- */
+// Class containing a list of movies
 public class MoviesListFragment extends Fragment {
 
     private static final String LOG_TAG = MoviesActivity.class.getSimpleName();
@@ -54,6 +49,7 @@ public class MoviesListFragment extends Fragment {
     public MoviesListFragment() {
     }
 
+    // Create new Fragment instance
     public static MoviesListFragment newInstance(int columnCount) {
         MoviesListFragment fragment = new MoviesListFragment();
         Bundle args = new Bundle();
@@ -95,10 +91,9 @@ public class MoviesListFragment extends Fragment {
         }
     }
 
+    // Starts AsyncTask to fetch The Movie DB API
     private void updateMoviesList() {
         FetchMoviesTask moviesTask = new FetchMoviesTask();
-
-        //TODO: Must implement logic to get query option by user settings (SharedPreferences)
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sortOrder = prefs.getString(getString(R.string.pref_sort_order_key),
                 getString(R.string.pref_popular_value));
@@ -107,6 +102,7 @@ public class MoviesListFragment extends Fragment {
         moviesTask.execute(sortOrder);
     }
 
+    // Method to decide if movie info should be updated based on sort order
     private boolean needToUpdateMoviesList() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (!mLastUpdateOrder.equals(prefs.getString(getString(R.string.pref_sort_order_key),
@@ -167,20 +163,11 @@ public class MoviesListFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnMoviesListInteractionListener {
         void onMoviesListInteraction(Movie item);
     }
 
+    // AsyncTask to fetch The Movie DB data
     public class FetchMoviesTask extends AsyncTask<String, Void, Movie[]> {
 
         private Movie[] getMoviesDataFromJson(String moviesJsonStr)
@@ -204,8 +191,8 @@ public class MoviesListFragment extends Fragment {
             return moviesArray;
         }
 
+        // Creates Uri based on sort order, language, etc
         private Uri createMoviesUri(String sortOrder) {
-
             Uri builtUri = null;
 
             if (sortOrder.equals(getString(R.string.pref_popular_value))) {
@@ -216,7 +203,6 @@ public class MoviesListFragment extends Fragment {
                 builtUri = Uri.parse(Constants.API_POPULAR_MOVIES_BASE_URL);
 
             }
-
 
             Uri apiUri = null;
 
@@ -234,12 +220,11 @@ public class MoviesListFragment extends Fragment {
                         .build();
             }
 
-
             return apiUri;
         }
 
+        // Method to create poster thumbnail Uri
         private Uri createPosterUri(String posterPath) {
-
             Uri builtUri = Uri.parse(Constants.API_POSTER_MOVIES_BASE_URL).buildUpon().appendEncodedPath(Constants.API_POSTER_SIZE).appendEncodedPath(posterPath).build();
             return builtUri;
         }
@@ -248,7 +233,6 @@ public class MoviesListFragment extends Fragment {
         @Override
         protected Movie[] doInBackground(String... params) {
 
-            // If there's no zip code, there's nothing to look up.  Verify size of params.
             if (params.length == 0) {
                 return null;
             }
