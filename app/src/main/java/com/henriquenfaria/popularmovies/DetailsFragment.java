@@ -2,6 +2,7 @@ package com.henriquenfaria.popularmovies;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import com.bumptech.glide.Glide;
 
 public class DetailsFragment extends Fragment {
 
+    private static final String LOG_TAG = DetailsFragment.class.getSimpleName();
     private static final String ARG_MOVIE = "arg_movie";
+
     private Movie mMovie;
 
     public DetailsFragment() {
@@ -57,7 +60,11 @@ public class DetailsFragment extends Fragment {
             averageView.setText(mMovie.getVoteAverage());
 
             TextView overviewView = (TextView) view.findViewById(R.id.overview_content);
-            overviewView.setText(mMovie.getOverview());
+
+            // In portuguese, some movies does not contain overview data. In that case, displays default text: @string/overview_not_available
+            if (!TextUtils.isEmpty(mMovie.getOverview())){
+                overviewView.setText(mMovie.getOverview());
+            }
         }
 
         return view;

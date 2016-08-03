@@ -29,14 +29,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A fragment representing a list of Items.
- * <p>
+ * <p/>
  * Activities containing this fragment MUST implement the {@link OnMoviesListInteractionListener}
  * interface.
  */
-public class MoviesFragment extends Fragment {
+public class MoviesListFragment extends Fragment {
 
     private static final String LOG_TAG = MoviesActivity.class.getSimpleName();
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -50,11 +51,11 @@ public class MoviesFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MoviesFragment() {
+    public MoviesListFragment() {
     }
 
-    public static MoviesFragment newInstance(int columnCount) {
-        MoviesFragment fragment = new MoviesFragment();
+    public static MoviesListFragment newInstance(int columnCount) {
+        MoviesListFragment fragment = new MoviesListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -115,7 +116,6 @@ public class MoviesFragment extends Fragment {
         } else {
             return false;
         }
-
     }
 
     @Override
@@ -142,7 +142,6 @@ public class MoviesFragment extends Fragment {
                 recyclerView.setLayoutManager(gridLayoutManager);
             }
 
-            //TODO: Do i need to remove this?
             mMoviesList = new ArrayList<Movie>();
 
             mMoviesRecyclerViewAdapter = new MoviesRecyclerViewAdapter(mMoviesList, mListener);
@@ -173,7 +172,7 @@ public class MoviesFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -187,28 +186,18 @@ public class MoviesFragment extends Fragment {
         private Movie[] getMoviesDataFromJson(String moviesJsonStr)
                 throws JSONException {
 
-            //These are the names of the JSON objects that need to be extracted.
-            final String TMD_LIST = "results";
-            final String TMD_ID = "id";
-            final String TMD_TITLE = "title";
-            final String TMD_RELEASE_DATE = "release_date";
-            final String TMD_VOTE_AVERAGE = "vote_average";
-            final String TMD_OVERVIEW = "overview";
-            final String TMD_POSTER_PATH = "poster_path";
-
             JSONObject moviesJson = new JSONObject(moviesJsonStr);
-            JSONArray jsonMoviesArray = moviesJson.getJSONArray(TMD_LIST);
+            JSONArray jsonMoviesArray = moviesJson.getJSONArray(Constants.JSON_LIST);
 
             Movie[] moviesArray = new Movie[jsonMoviesArray.length()];
 
             for (int i = 0; i < jsonMoviesArray.length(); i++) {
-
-                String id = jsonMoviesArray.getJSONObject(i).getString(TMD_ID);
-                String title = jsonMoviesArray.getJSONObject(i).getString(TMD_TITLE);
-                String releaseDate = jsonMoviesArray.getJSONObject(i).getString(TMD_RELEASE_DATE);
-                String voteAverage = jsonMoviesArray.getJSONObject(i).getString(TMD_VOTE_AVERAGE);
-                String overview = jsonMoviesArray.getJSONObject(i).getString(TMD_OVERVIEW);
-                Uri posterUri = createPosterUri(jsonMoviesArray.getJSONObject(i).getString(TMD_POSTER_PATH));
+                String id = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_ID);
+                String title = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_TITLE);
+                String releaseDate = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_RELEASE_DATE);
+                String voteAverage = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_VOTE_AVERAGE);
+                String overview = jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_OVERVIEW);
+                Uri posterUri = createPosterUri(jsonMoviesArray.getJSONObject(i).getString(Constants.JSON_POSTER_PATH));
 
                 moviesArray[i] = new Movie(id, title, releaseDate, voteAverage, overview, posterUri);
             }
@@ -217,36 +206,41 @@ public class MoviesFragment extends Fragment {
 
         private Uri createMoviesUri(String sortOrder) {
 
-            final String POPULAR_MOVIES_BASE_URL =
-                    "https://api.themoviedb.org/3/movie/popular?";
-            final String TOP_RATED_MOVIES_BASE_URL =
-                    "https://api.themoviedb.org/3/movie/top_rated?";
-            final String POSTER_MOVIES_BASE_URL = "http://image.tmdb.org/t/p/";
-            final String POSTER_SIZE = "w185/";
-            final String API_KEY_PARAM = "api_key";
-
             Uri builtUri = null;
 
             if (sortOrder.equals(getString(R.string.pref_popular_value))) {
-                builtUri = Uri.parse(POPULAR_MOVIES_BASE_URL);
+                builtUri = Uri.parse(Constants.API_POPULAR_MOVIES_BASE_URL);
             } else if (sortOrder.equals(getString(R.string.pref_top_rated_value))) {
-                builtUri = Uri.parse(TOP_RATED_MOVIES_BASE_URL);
+                builtUri = Uri.parse(Constants.API_TOP_RATED_MOVIES_BASE_URL);
             } else {
-                builtUri = Uri.parse(POPULAR_MOVIES_BASE_URL);
+                builtUri = Uri.parse(Constants.API_POPULAR_MOVIES_BASE_URL);
 
             }
 
-            return builtUri.buildUpon()
-                    .appendQueryParameter(API_KEY_PARAM, BuildConfig.THE_MOVIE_DB_MAP_API_KEY)
-                    .build();
+
+            Uri apiUri = null;
+
+            // This app supports English and Brazilian Portuguese
+            // How to get system's current country: http://stackoverflow.com/questions/4212320/get-the-current-language-in-device
+            if (Constants.API_PORTUGUESE_LANGUAGE.startsWith(Locale.getDefault().getLanguage())) {
+                apiUri = builtUri.buildUpon()
+                        .appendQueryParameter(Constants.API_KEY_PARAM, BuildConfig.THE_MOVIE_DB_MAP_API_KEY)
+                        .appendQueryParameter(Constants.API_LANGUAGE_PARAM, Constants.API_PORTUGUESE_LANGUAGE)
+                        .build();
+            } else {
+
+                apiUri = builtUri.buildUpon()
+                        .appendQueryParameter(Constants.API_KEY_PARAM, BuildConfig.THE_MOVIE_DB_MAP_API_KEY)
+                        .build();
+            }
+
+
+            return apiUri;
         }
 
         private Uri createPosterUri(String posterPath) {
 
-            final String POSTER_MOVIES_BASE_URL = "http://image.tmdb.org/t/p/";
-            final String POSTER_SIZE = "w185/";
-
-            Uri builtUri = Uri.parse(POSTER_MOVIES_BASE_URL).buildUpon().appendEncodedPath(POSTER_SIZE).appendEncodedPath(posterPath).build();
+            Uri builtUri = Uri.parse(Constants.API_POSTER_MOVIES_BASE_URL).buildUpon().appendEncodedPath(Constants.API_POSTER_SIZE).appendEncodedPath(posterPath).build();
             return builtUri;
         }
 
@@ -266,10 +260,6 @@ public class MoviesFragment extends Fragment {
 
             // Will contain the raw JSON response as a string.
             String moviesJsonStr = null;
-
-            String format = "json";
-            String units = "metric";
-            int numDays = 7;
 
             try {
                 Uri moviesUri = createMoviesUri(params[0]);
@@ -304,7 +294,7 @@ public class MoviesFragment extends Fragment {
                 moviesJsonStr = buffer.toString();
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
+                // If the code didn't successfully get the movies data, there's no point in attemping
                 // to parse it.
                 return null;
             } finally {

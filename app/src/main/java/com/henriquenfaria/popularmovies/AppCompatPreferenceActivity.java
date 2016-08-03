@@ -18,6 +18,8 @@ import android.view.ViewGroup;
  */
 public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
 
+    private static final String LOG_TAG = AppCompatPreferenceActivity.class.getSimpleName();
+
     private AppCompatDelegate mDelegate;
 
     @Override

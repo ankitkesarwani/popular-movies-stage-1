@@ -90,7 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/overview_header"
-            android:textSize="@dimen/text_size_body" />
+            android:textSize="@dimen/text_size_body"
+            android:text="@string/overview_not_available"/>
     </RelativeLayout>
 
 </ScrollView>

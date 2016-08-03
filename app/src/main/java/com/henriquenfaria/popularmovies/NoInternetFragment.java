@@ -10,14 +10,13 @@ import android.widget.Button;
 
 public class NoInternetFragment extends Fragment {
 
+    private static final String LOG_TAG = NoInternetFragment.class.getSimpleName();
 
     private OnRetryInteractionListener mListener;
 
     public NoInternetFragment() {
         // Required empty public constructor
     }
-
-
 
     public static NoInternetFragment newInstance() {
         NoInternetFragment fragment = new NoInternetFragment();
@@ -33,7 +32,7 @@ public class NoInternetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_no_internet, container, false);
-        Button retryButton =  (Button) view.findViewById(R.id.retry_button);
+        Button retryButton = (Button) view.findViewById(R.id.retry_button);
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

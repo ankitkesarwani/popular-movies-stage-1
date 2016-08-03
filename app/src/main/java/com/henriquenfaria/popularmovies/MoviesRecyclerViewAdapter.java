@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
- * specified {@link MoviesFragment.OnMoviesListFragmentInteractionListener}.
+ * specified {@link MoviesListFragment.OnMoviesListInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
@@ -21,9 +21,9 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     private static final String LOG_TAG = MoviesRecyclerViewAdapter.class.getSimpleName();
 
     private final List<Movie> mMoviesList;
-    private final MoviesFragment.OnMoviesListInteractionListener mListener;
+    private final MoviesListFragment.OnMoviesListInteractionListener mListener;
 
-    public MoviesRecyclerViewAdapter(List<Movie> moviesList, MoviesFragment.OnMoviesListInteractionListener listener) {
+    public MoviesRecyclerViewAdapter(List<Movie> moviesList, MoviesListFragment.OnMoviesListInteractionListener listener) {
         mMoviesList = moviesList;
         mListener = listener;
     }

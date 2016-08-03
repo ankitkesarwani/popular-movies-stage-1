@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MoviesActivity extends AppCompatActivity implements MoviesFragment.OnMoviesListInteractionListener, NoInternetFragment.OnRetryInteractionListener {
+public class MoviesActivity extends AppCompatActivity implements MoviesListFragment.OnMoviesListInteractionListener, NoInternetFragment.OnRetryInteractionListener {
 
     private static final String LOG_TAG = MoviesActivity.class.getSimpleName();
 
@@ -28,29 +28,29 @@ public class MoviesActivity extends AppCompatActivity implements MoviesFragment.
 
         if (savedInstanceState == null) {
             if (isInternetConnected()) {
-                MoviesFragment moviesFragment = getMoviesFragment(getResources().getConfiguration());
-                fragmentTransaction.add(R.id.movies_fragment_container, moviesFragment).commit();
+                MoviesListFragment moviesListFragment = getMoviesFragment(getResources().getConfiguration());
+                fragmentTransaction.add(R.id.movies_fragment_container, moviesListFragment).commit();
             } else {
                 NoInternetFragment noInternetFragment = NoInternetFragment.newInstance();
                 fragmentTransaction.add(R.id.movies_fragment_container, noInternetFragment).commit();
             }
         } else {
             Fragment currentFragment = fragmentManager.findFragmentById(R.id.movies_fragment_container);
-            if (currentFragment instanceof MoviesFragment && !isInternetConnected()) {
+            if (currentFragment instanceof MoviesListFragment && !isInternetConnected()) {
                 NoInternetFragment noInternetFragment = NoInternetFragment.newInstance();
                 fragmentTransaction.replace(R.id.movies_fragment_container, noInternetFragment).commit();
             } else if (currentFragment instanceof NoInternetFragment && isInternetConnected()) {
-                MoviesFragment moviesFragment = getMoviesFragment(getResources().getConfiguration());
-                fragmentTransaction.replace(R.id.movies_fragment_container, moviesFragment).commit();
+                MoviesListFragment moviesListFragment = getMoviesFragment(getResources().getConfiguration());
+                fragmentTransaction.replace(R.id.movies_fragment_container, moviesListFragment).commit();
             }
         }
     }
 
-    private MoviesFragment getMoviesFragment(Configuration config) {
+    private MoviesListFragment getMoviesFragment(Configuration config) {
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            return MoviesFragment.newInstance(Constants.PORTRAIT_COLUMN_COUNT);
+            return MoviesListFragment.newInstance(Constants.PORTRAIT_COLUMN_COUNT);
         } else {
-            return MoviesFragment.newInstance(Constants.LANDSCAPE_COLUMN_COUNT);
+            return MoviesListFragment.newInstance(Constants.LANDSCAPE_COLUMN_COUNT);
         }
     }
 
@@ -79,7 +79,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesFragment.
         return super.onOptionsItemSelected(item);
     }
 
-
     /*
     * Method to check if internet connection is available or not.
     * Method from http://stackoverflow.com/questions/16481334/check-network-connection-in-fragment
@@ -104,7 +103,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesFragment.
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.movies_fragment_container);
-        if (currentFragment instanceof MoviesFragment && !isInternetConnected()) {
+        if (currentFragment instanceof MoviesListFragment && !isInternetConnected()) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             NoInternetFragment noInternetFragment = NoInternetFragment.newInstance();
             fragmentTransaction.replace(R.id.movies_fragment_container, noInternetFragment).commit();
@@ -117,8 +116,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesFragment.
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.movies_fragment_container);
         if (currentFragment instanceof NoInternetFragment && isInternetConnected()) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            MoviesFragment moviesFragment = getMoviesFragment(getResources().getConfiguration());
-            fragmentTransaction.replace(R.id.movies_fragment_container, moviesFragment).commit();
+            MoviesListFragment moviesListFragment = getMoviesFragment(getResources().getConfiguration());
+            fragmentTransaction.replace(R.id.movies_fragment_container, moviesListFragment).commit();
         } else if (!isInternetConnected()) {
             Toast.makeText(this, R.string.toast_no_internet_connection, Toast.LENGTH_SHORT).show();
         }

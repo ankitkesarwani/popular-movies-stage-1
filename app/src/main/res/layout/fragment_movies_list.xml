@@ -8,5 +8,5 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     app:layoutManager="GridLayoutManager"
-    tools:context=".MoviesFragment"
+    tools:context=".MoviesListFragment"
     tools:listitem="@layout/fragment_movie_item" />
