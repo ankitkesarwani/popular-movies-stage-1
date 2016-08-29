@@ -14,7 +14,7 @@ Stage 1 Features
 This is only the first part of the final Popular Movies Project.
 It contains the following features:
 
-- Upon launch, it presents the user with an grid arrangement of movie posters and title
+- Upon launch, it presents the user with an grid arrangement of movie posters and titles
 - Configurable movies sort order via settings (popular and top rated)
 - Selecting a movie displays more detailed infomation such as: original title, plot synopsis, user rating, release date
 
